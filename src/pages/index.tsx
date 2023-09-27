@@ -5,9 +5,9 @@ import Image from 'next/image'
 
 import techsImage from '@/public/images/techs.svg'
 
-import {getPrismicClient} from '../services/prismic'
+import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
-import {RichText} from 'prismic-dom';
+import { RichText } from 'prismic-dom';
 
 
 type Content = {
@@ -22,12 +22,12 @@ type Content = {
   webBanner: string;
 }
 
-interface ContentProps{
+interface ContentProps {
   content: Content
 }
 
-export default function Home({content}: ContentProps) {
-  
+export default function Home({ content }: ContentProps) {
+
   return (
     <>
       <Head>
@@ -38,13 +38,13 @@ export default function Home({content}: ContentProps) {
           <section className={styles.ctaText}>
             <h1>{content.title}</h1>
             <span>{content.titleContent}</span>
-            <a href={content.linkAction}>
+            <a href={content.linkAction} target='_blank'>
               <button>
-                COMECE AGORA!
+                Contacte-me
               </button>
             </a>
           </section>
-          <img src='/images/banner-conteudos.png' alt='conteúdos' />
+          <img src='/images/appweb.png' alt='conteúdos' />
         </div>
 
         <hr className={styles.divisor} />
@@ -55,15 +55,13 @@ export default function Home({content}: ContentProps) {
             <span>{content.mobileContent}</span>
           </section>
 
-          <img src={content.mobileBanner} alt='cunteúdos mobile: desenvolvimento de apps' />
+          <img src={content.mobileBanner} alt="Conteúdos desenvolvimento de apps" />
         </div>
 
         <hr className={styles.divisor} />
 
         <div className={styles.sectionContent}>
-          <img src={content.webBanner} alt='cunteúdos Web'
-              draggable={false}
-            />
+          <img src={content.webBanner} alt="Conteúdos desenvolvimento de aplicacoes web" />
 
           <section>
             <h2>{content.webTitle}</h2>
@@ -71,12 +69,14 @@ export default function Home({content}: ContentProps) {
           </section>
         </div>
 
+        <hr className={styles.divisor} />
+
         <div className={styles.nextLevelContent}>
           <Image src={techsImage} alt='tecnologia' />
-          <h2>Mais de <span className={styles.alunos}>15 mil</span> já levaram sua carreira ao próximo nível</h2>
-          <span>E você, Vai perder a chance de evoluir na carreira de Dev?</span>
-          <a href={content.linkAction}>
-            <button>COMEÇAR AGORA!</button>
+          <h2>Estas são as <span className={styles.alunos}>Stacks</span> que venho estudando</h2>
+          <span>“O conhecimento fala, mas a sabedoria ouve.” (Jimi Hendrix)</span>
+          <a href={content.linkAction} target='_blank'>
+            <button>Contacte-me</button>
           </a>
         </div>
       </main>
@@ -84,34 +84,34 @@ export default function Home({content}: ContentProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () =>{
+export const getStaticProps: GetStaticProps = async () => {
 
-    const prismic = getPrismicClient()
+  const prismic = getPrismicClient()
 
-    const response = await prismic.query([
-      Prismic.Predicates.at('document.type', 'home')
-    ])
+  const response = await prismic.query([
+    Prismic.Predicates.at('document.type', 'home')
+  ])
 
-   const {
+  const {
     title, sub_title, link_action,
     mobile, mobile_content, mobile_bannser,
-    title_web,  web_content, web_banner
-   } = response.results[0].data;
+    title_web, web_content, web_banner
+  } = response.results[0].data;
 
-   const content = {
-    title: RichText.asText(title),
-    titleContent: RichText.asText(sub_title),
+  const content = {
+    title: RichText?.asText(title),
+    titleContent: RichText?.asText(sub_title),
     linkAction: link_action.url,
-    mobileTitle: RichText.asText(mobile),
+    mobileTitle: RichText?.asText(mobile),
     mobileContent: RichText.asText(mobile_content),
     mobileBanner: mobile_bannser.url,
     webTitle: RichText.asText(title_web),
     webContent: RichText.asText(web_content),
     webBanner: web_banner.url
-   }
+  }
 
-  return{
-    props:{
+  return {
+    props: {
       content
     },
     revalidate: 60 * 2
