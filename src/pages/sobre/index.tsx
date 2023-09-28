@@ -12,6 +12,7 @@ import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa'
 
 type Content = {
     title: string;
+    paragrafo: string;
     description: string;
     banner: string;
     instagram: string;
@@ -36,22 +37,30 @@ export default function About({ content }: ContentProps) {
                     <section className={styles.ctaText}>
                         <h1>{content.title}</h1>
                         <p>{content.description}</p>
-                        <a href={content.instagram}>
-                            <FaInstagram size={40} />
-                        </a>
+                        <br />
+                        <div className={styles.separator}>
+                            <a href={content.instagram} target="_blank">
+                                <FaInstagram size={40} />
+                            </a>
 
-                        <a href={content.linkedin}>
-                            <FaLinkedin size={40} />
-                        </a>
+                            <a href={content.linkedin} target="_blank">
+                                <FaLinkedin size={40} />
+                            </a>
 
-                        <a href={content.github}>
-                            <FaGithub size={40} />
-                        </a>
+                            <a href={content.github} target="_blank">
+                                <FaGithub size={40} />
+                            </a>
+                        </div>
+                        <br />
+                        <br />
+                        <p>{content.paragrafo}</p>
+
                     </section>
                     <img src={content.banner}
                         alt="Sobre Tiago Machado"
                     />
                 </div>
+                <br />
             </main>
         </>
     )
@@ -67,6 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const {
         title,
+        paragrafo,
         description,
         banner,
         instagram,
@@ -77,6 +87,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const content = {
         title: RichText.asText(title),
+        paragrafo: RichText.asText(paragrafo),
         description: RichText.asText(description),
         banner: banner.url,
         instagram: instagram.url,
@@ -88,6 +99,8 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
         props: {
             content
-        }
+        
+        },
+        revalidate: 60 * 30 // revalidar a cada 30 minutos
     }
 }
