@@ -7,7 +7,8 @@ import techsImage from '@/public/images/techs.svg'
 
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
-import { RichText } from 'prismic-dom';
+// import { RichText } from 'prismic-dom';
+import { PrismicRichText  } from '@prismicio/react'
 
 
 type Content = {
@@ -99,14 +100,14 @@ export const getStaticProps: GetStaticProps = async () => {
   } = response.results[0].data;
 
   const content = {
-    title: RichText?.asText(title),
-    titleContent: RichText?.asText(sub_title),
+    title: PrismicRichText.asText(title),
+    titleContent: PrismicRichText.asText(sub_title),
     linkAction: link_action.url,
-    mobileTitle: RichText?.asText(mobile),
-    mobileContent: RichText.asText(mobile_content),
+    mobileTitle: PrismicRichText.asText(mobile),
+    mobileContent: PrismicRichText.asText(mobile_content),
     mobileBanner: mobile_bannser.url,
-    webTitle: RichText.asText(title_web),
-    webContent: RichText.asText(web_content),
+    webTitle: PrismicRichText.asText(title_web),
+    webContent: PrismicRichText.asText(web_content),
     webBanner: web_banner.url
   }
 
