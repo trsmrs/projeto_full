@@ -51,11 +51,11 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
         if (response.results.length === 0) {
             return
         }
-        const getPosts = response.results.map(post => {
+        const getPosts = response.results.map((post: any) => {
             return {
                 slug: post.uid,
                 title: RichText.asText(post.data.title),
-                description: post.data.description.find(content => content.type === 'paragraph')?.text ?? '',
+                description: post.data.description.find((content: any) => content.type === 'paragraph')?.text ?? '',
                 cover: post.data.cover.url,
                 updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
                     day: '2-digit',
@@ -133,11 +133,11 @@ export const getStaticProps: GetStaticProps = async () => {
         pageSize: 2
     })
 
-    const posts = response.results.map(post => {
+    const posts = response.results.map((post: any) => {
         return {
             slug: post.uid,
             title: RichText.asText(post.data.title),
-            description: post.data.description.find(content => content.type === 'paragraph')?.text ?? '',
+            description: post.data.description.find((content: any) => content.type === 'paragraph')?.text ?? '',
             cover: post.data.cover.url,
             updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
                 day: '2-digit',
