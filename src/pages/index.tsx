@@ -40,12 +40,12 @@ export default function Home({ content }: ContentProps) {
             <h1>{content.title}</h1>
             <span>{content.titleContent}</span>
             <a href={content.linkAction} target='_blank'>
+              <img src='/images/appweb.png' alt='conteúdos' />
               <button>
                 Contacte-me
               </button>
             </a>
           </section>
-          <img src='/images/appweb.png' alt='conteúdos' />
         </div>
 
         <hr className={styles.divisor} />
