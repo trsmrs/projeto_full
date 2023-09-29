@@ -38,9 +38,9 @@ export default function Home({ content }: ContentProps) {
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
             <h1>{content.title}</h1>
-            <span>{content.titleContent}</span>
-            <img src='/images/appweb.png' alt='conteúdos' />
             <a href={content.linkAction} target='_blank'>
+            <img src='/images/appweb.png' alt='conteúdos' />
+            <span>{content.titleContent}</span>
               <button>
                 Contacte-me
               </button>
