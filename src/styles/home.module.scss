@@ -43,6 +43,10 @@
       color: var(--white);
       font-weight: bold;
     }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
   }
   
   .divisor{
@@ -124,6 +128,10 @@
       border-radius: 6px;
       color: var(--white);
       font-weight: bold;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
     }
   
   }
