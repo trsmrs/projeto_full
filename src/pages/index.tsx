@@ -43,8 +43,8 @@ export default function Home({ content }: ContentProps) {
               <button>
                 Contacte-me
               </button>
+              {/* <span>{content.titleContent}</span> */}
             </a>
-            <span>{content.titleContent}</span>
           </section>
         </div>
 
