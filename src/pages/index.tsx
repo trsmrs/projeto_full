@@ -3,7 +3,8 @@ import Head from 'next/head'
 import styles from '../styles/home.module.scss'
 import Image from 'next/image'
 
-import techsImage from '@/public/images/techs.svg'
+// import techsImage from '@/public/images/techs.svg'
+import techsImage from '@/public/images/about.png'
 
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
