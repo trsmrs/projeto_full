@@ -39,7 +39,7 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
         ], {
             orderings: '[document.last_publication_date desc]', //ordernar pelo mais recente.
             fetch: ['post.title', 'post.description', 'post.cover'],
-            pageSize: 2,
+            pageSize: 3,
             page: String(pageNumber)
         })
 
@@ -130,7 +130,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ], {
         orderings: '[document.last_publication_date desc]', //ordernar pelo mais recente.
         fetch: ['post.title', 'post.description', 'post.cover'],
-        pageSize: 2
+        pageSize: 3
     })
 
     const posts = response.results.map((post: any) => {
