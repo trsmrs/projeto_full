@@ -72,7 +72,7 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
     return (
         <>
             <Head>
-                <title>Blog | Sujeito Programador</title>
+                <title>Portfólio | Projetos</title>
             </Head>
             <main className={styles.container}>
                 <div className={styles.posts}>

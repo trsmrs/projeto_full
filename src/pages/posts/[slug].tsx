@@ -39,7 +39,7 @@ export default function Post({post}:PostProps) {
                 alt={post.title}
                 draggable={false}
                 placeholder='blur'
-                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvW7jRQAG8wLdN79GyQAAAABJRU5ErkJggg=='
+                blurDataURL='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
                 />
                 <h1>{post.title}</h1>
                 <time>{post.updatedAt}</time>
