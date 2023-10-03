@@ -77,7 +77,10 @@ export default function Home({ content }: ContentProps) {
         <hr className={styles.divisor} />
 
         <div className={styles.nextLevelContent}>
-          <Image src={techsImage} alt='tecnologia' />
+          <Image src={techsImage} alt='tecnologia'
+            quality={100}
+            width={440}
+          />
           <h2>Estas são as <span className={styles.alunos}>Stacks</span> que venho estudando</h2>
           <span>“O conhecimento fala, mas a sabedoria ouve.” (Jimi Hendrix)</span>
           <a href={content.linkAction} target='_blank'>
