@@ -85,7 +85,7 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
                                 quality={100}
                                 draggable={false}
                                 placeholder='blur'
-                                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNcvW7jRQAG8wLdN79GyQAAAABJRU5ErkJggg=='
+                                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUF5d8BQABxwEz747jfgAAAABJRU5ErkJggg=='
 
                             />
                             <strong>{post.title}</strong>

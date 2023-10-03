@@ -79,9 +79,9 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
     .posts {
-        max-width: 320px;
+        max-width: 620px;
         margin: 3rem auto 0;
     
     
@@ -128,9 +128,9 @@
             }
     
             img {
-                margin-left: 13%;
-                max-width: 70%;
-                max-height: 220px;
+                margin-left: 7%;
+                max-width: 90%;
+                max-height: 210px;
                 border: 2px solid var(--blue-900);
                 border-radius: 6px;
                 border-image: linear-gradient(95deg, #31b4d0, transparent) 1;
