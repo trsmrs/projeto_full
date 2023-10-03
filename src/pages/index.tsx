@@ -40,8 +40,8 @@ export default function Home({ content }: ContentProps) {
           <section className={styles.ctaText}>
             <h1>{content.title}</h1>
             <img src='/images/appweb.png' alt='conteúdos' 
-              width={700}
-              height={500}
+              // width={700}
+              // height={500}
             />
             <a href={content.linkAction} target='_blank'>
               <button>
