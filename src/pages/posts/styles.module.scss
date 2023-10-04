@@ -7,11 +7,11 @@
 .posts {
     max-width: 720px;
     margin: 5rem auto;
-    
+
     a {
         display: block;
-        
-        & + a{
+
+        &+a {
             margin-top: 2rem;
             padding-top: 2rem;
         }
@@ -32,19 +32,20 @@
         }
 
         strong {
-           display: block;
-           font-size: 1.5rem;
-           margin: 1rem 0;
-           line-height: 2rem;
-           color: var(--white); 
-           transition: color 0.3s;
+            display: block;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            line-height: 2rem;
+            color: var(--white);
+            transition: color 0.3s;
         }
 
-        p{
+        p {
             color: var(--white);
             margin-top: 0.5rem;
             line-height: 1.62rem;
         }
+
         &:hover strong {
             color: var(--blue-900);
         }
@@ -78,25 +79,24 @@
     }
 }
 
-
 @media (max-width: 599px) {
     .posts {
         max-width: 620px;
         margin: 3rem auto 0;
-    
-    
+
+
         img {
             max-width: 100%;
             max-height: 210px;
             border-radius: 15px;
         }
-    
+
         h1 {
             font-size: 1.5rem;
             font-weight: 900;
             color: var(--white);
         }
-    
+
         time {
             color: var(--gray-100);
             margin-top: 1.3rem;
@@ -106,50 +106,51 @@
     }
 }
 
-@media (max-width: 400px){
+@media (max-width: 400px) {
 
     .posts {
         max-width: 400px;
         margin: 3rem auto;
-        
+
         a {
             display: block;
-            
-            & + a{
+
+            &+a {
                 margin-top: 1rem;
                 padding-top: 1rem;
             }
-    
+
             time {
                 font-size: .9rem;
                 display: flex;
                 align-items: center;
                 color: var(--gray-200);
             }
-    
+
             img {
-               
+
                 max-width: 90%;
                 max-height: 210px;
                 border: 2px solid var(--blue-900);
                 border-radius: 6px;
                 border-image: linear-gradient(95deg, #31b4d0, transparent) 1;
             }
-    
+
             strong {
-               display: block;
-               font-size: 1.2rem;
-               margin: 1rem 0;
-               line-height: 1.5rem;
-               color: var(--white); 
-               transition: color 0.3s;
+                display: block;
+                font-size: 1.2rem;
+                margin: 1rem 0;
+                line-height: 1.5rem;
+                color: var(--white);
+                transition: color 0.3s;
             }
-    
-            p{
+
+            p {
                 color: var(--white);
                 margin-top: 0.3rem;
                 line-height: 1.57rem;
             }
+
             &:hover strong {
                 color: var(--blue-900);
             }

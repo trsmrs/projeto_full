@@ -1,15 +1,16 @@
+
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
 import Image from 'next/image'
+import { FaArrowUp } from 'react-icons/fa'
 
-// import techsImage from '@/public/images/techs.svg'
 import techsImage from '@/public/images/about.png'
-
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom';
-// import { PrismicRichText  } from '@prismicio/react'
+import { useEffect, useState } from 'react'
+
 
 
 type Content = {
@@ -22,6 +23,7 @@ type Content = {
   webTitle: string;
   webContent: string;
   webBanner: string;
+  citacao: string;
 }
 
 interface ContentProps {
@@ -29,25 +31,42 @@ interface ContentProps {
 }
 
 export default function Home({ content }: ContentProps) {
+  const [showButton, setShowButton] = useState(false)
+
+
+  const checkScroll = () => {
+    if (window.scrollY > window.innerHeight / 1) {
+      setShowButton(true)
+    } else {
+      setShowButton(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', checkScroll)
+    return () => {
+      window.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
 
   return (
     <>
       <Head>
         <title>Home Page</title>
+      <p id='topo'></p>
       </Head>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
             <h1>{content.title}</h1>
-            <img src='/images/appweb.png' alt='conteúdos' 
-              // width={700}
-              // height={500}
+            <img src='/images/appweb.png' alt='conteúdos'
             />
             <a href={content.linkAction} target='_blank'>
               <button>
                 Contacte-me
               </button>
-              {/* <span>{content.titleContent}</span> */}
+              <br/>
+              <span>{content.titleContent}</span>
             </a>
           </section>
         </div>
@@ -77,16 +96,24 @@ export default function Home({ content }: ContentProps) {
         <hr className={styles.divisor} />
 
         <div className={styles.nextLevelContent}>
+          <h2>Estas são as <span>Stacks</span> que venho estudando</h2>
           <Image src={techsImage} alt='tecnologia'
             quality={100}
-            width={440}
+            width={460}
           />
-          <h2>Estas são as <span className={styles.alunos}>Stacks</span> que venho estudando</h2>
-          <span>“O conhecimento fala, mas a sabedoria ouve.” (Jimi Hendrix)</span>
+          <span>{content.citacao}</span>
           <a href={content.linkAction} target='_blank'>
             <button>Contacte-me</button>
           </a>
         </div>
+        {showButton && (
+          <a className={styles.btntopo} href='#topo'>
+            <FaArrowUp color={'#FFF'}
+            size={25}
+            />
+            
+          </a>
+        )}
       </main>
     </>
   )
@@ -103,7 +130,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const {
     title, sub_title, link_action,
     mobile, mobile_content, mobile_bannser,
-    title_web, web_content, web_banner
+    title_web, web_content, web_banner, citacao
   } = response.results[0].data;
 
   const content = {
@@ -115,7 +142,8 @@ export const getStaticProps: GetStaticProps = async () => {
     mobileBanner: mobile_bannser.url,
     webTitle: RichText.asText(title_web),
     webContent: RichText.asText(web_content),
-    webBanner: web_banner.url
+    webBanner: web_banner.url,
+    citacao: RichText.asText(citacao)
   }
 
   return {
