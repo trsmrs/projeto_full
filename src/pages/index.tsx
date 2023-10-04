@@ -31,16 +31,9 @@ interface ContentProps {
 
 export default function Home({ content }: ContentProps) {
 
-  let setShowButton = false
 
 
-  const checkScroll = () => {
-    if (window.scrollY > window.innerHeight / 1) {
-      setShowButton = true
-    } else {
-      setShowButton = false
-    }
-  }
+
 
 
   return (
@@ -100,14 +93,14 @@ export default function Home({ content }: ContentProps) {
             <button>Contacte-me</button>
           </a>
         </div>
-        {setShowButton && (
-          <a className={styles.btntopo} href='#topo'>
-            <FaArrowUp color={'#FFF'}
-              size={25}
-            />
 
-          </a>
-        )}
+        <a className={styles.btntopo} href='#topo'>
+          <FaArrowUp color={'#FFF'}
+            size={25}
+          />
+
+        </a>
+
       </main>
     </>
   )
