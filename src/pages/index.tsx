@@ -8,7 +8,7 @@ import techsImage from '@/public/images/about.png'
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom';
-
+import { useEffect, useState } from 'react'
 
 
 
@@ -30,18 +30,30 @@ interface ContentProps {
 }
 
 export default function Home({ content }: ContentProps) {
+  const [showButton, setShowButton] = useState(false)
 
 
+  const checkScroll = () => {
+    if (window.scrollY > window.innerHeight / 1) {
+      setShowButton(true)
+    } else {
+      setShowButton(false)
+    }
+  }
 
-
-
+  useEffect(() => {
+    window.addEventListener('scroll', checkScroll)
+    return () => {
+      window.removeEventListener('scroll', checkScroll)
+    }
+  }, [])
 
   return (
     <>
       <Head>
         <title>Home Page</title>
       </Head>
-        <p id='topo'></p>
+      <p id='topo'></p>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
@@ -52,7 +64,7 @@ export default function Home({ content }: ContentProps) {
               <button>
                 Contacte-me
               </button>
-              <br />
+              <br/>
               <span>{content.titleContent}</span>
             </a>
           </section>
@@ -93,12 +105,14 @@ export default function Home({ content }: ContentProps) {
             <button>Contacte-me</button>
           </a>
         </div>
-
-        <a className={styles.btntopo} href='#topo'>
-          <FaArrowUp color={'#FFF'}
+        {showButton && (
+          <a className={styles.btntopo} href='#topo'>
+            <FaArrowUp color={'#FFF'}
             size={25}
-          />
-        </a>
+            />
+            
+          </a>
+        )}
       </main>
     </>
   )
