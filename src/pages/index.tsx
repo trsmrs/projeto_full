@@ -1,4 +1,3 @@
-"use client"
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import styles from '../styles/home.module.scss'
@@ -9,7 +8,7 @@ import techsImage from '@/public/images/about.png'
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom';
-import { useEffect, useState } from 'react'
+
 
 
 
@@ -31,29 +30,24 @@ interface ContentProps {
 }
 
 export default function Home({ content }: ContentProps) {
-  const [showButton, setShowButton] = useState(false)
+
+  let setShowButton = false
 
 
   const checkScroll = () => {
     if (window.scrollY > window.innerHeight / 1) {
-      setShowButton(true)
+      setShowButton = true
     } else {
-      setShowButton(false)
+      setShowButton = false
     }
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', checkScroll)
-    return () => {
-      window.removeEventListener('scroll', checkScroll)
-    }
-  }, [])
 
   return (
     <>
       <Head>
         <title>Home Page</title>
-      <p id='topo'></p>
+        <p id='topo'></p>
       </Head>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
@@ -65,7 +59,7 @@ export default function Home({ content }: ContentProps) {
               <button>
                 Contacte-me
               </button>
-              <br/>
+              <br />
               <span>{content.titleContent}</span>
             </a>
           </section>
@@ -106,12 +100,12 @@ export default function Home({ content }: ContentProps) {
             <button>Contacte-me</button>
           </a>
         </div>
-        {showButton && (
+        {setShowButton && (
           <a className={styles.btntopo} href='#topo'>
             <FaArrowUp color={'#FFF'}
-            size={25}
+              size={25}
             />
-            
+
           </a>
         )}
       </main>
