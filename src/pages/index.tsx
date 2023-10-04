@@ -40,8 +40,8 @@ export default function Home({ content }: ContentProps) {
     <>
       <Head>
         <title>Home Page</title>
-        <p id='topo'></p>
       </Head>
+        <p id='topo'></p>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
@@ -98,9 +98,7 @@ export default function Home({ content }: ContentProps) {
           <FaArrowUp color={'#FFF'}
             size={25}
           />
-
         </a>
-
       </main>
     </>
   )
