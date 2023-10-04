@@ -10,7 +10,7 @@ export function Header() {
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
                 <ActiveLink href='/' activeClassName={styles.active}>
-                    <p>
+                    <p id='topo'>
                         <Image src={logo} alt='logo-imagem' />
                     </p>
                 </ActiveLink>

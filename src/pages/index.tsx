@@ -50,7 +50,6 @@ export default function Home({ content }: ContentProps) {
 
   return (
     <>
-      <p id='topo'></p>
       <Head>
         <title>Home Page</title>
       </Head>
@@ -64,7 +63,7 @@ export default function Home({ content }: ContentProps) {
               <button>
                 Contacte-me
               </button>
-              <br/>
+              <br />
               <span>{content.titleContent}</span>
             </a>
           </section>
@@ -108,9 +107,9 @@ export default function Home({ content }: ContentProps) {
         {showButton && (
           <a className={styles.btntopo} href='#topo'>
             <FaArrowUp color={'#FFF'}
-            size={25}
+              size={25}
             />
-            
+
           </a>
         )}
       </main>

@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './styles.module.scss'
 import Head from 'next/head'
@@ -11,7 +11,7 @@ import { FiChevronLeft, FiChevronRight, FiChevronsRight, FiChevronsLeft } from '
 import { getPrismicClient } from '../../services/prismic'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
-
+import { FaArrowUp } from 'react-icons/fa'
 
 type Post = {
     slug: string
@@ -31,6 +31,24 @@ interface PostsProps {
 export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps) {
     const [posts, setPosts] = useState(postsBlog || [])
     const [currentPate, setCurrentPage] = useState(Number(page))
+    const [showButton, setShowButton] = useState(false)
+
+
+    const checkScroll = () => {
+        if (window.scrollY > window.innerHeight / 1) {
+            setShowButton(true)
+        } else {
+            setShowButton(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', checkScroll)
+        return () => {
+            window.removeEventListener('scroll', checkScroll)
+        }
+    }, [])
+
 
     async function reqPost(pageNumber: number) {
         const prismic = getPrismicClient()
@@ -74,6 +92,7 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
             <Head>
                 <title>Portfólio | Projetos</title>
             </Head>
+           
             <main className={styles.container}>
                 <div className={styles.posts}>
                     {posts.map(post => (
@@ -118,6 +137,14 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
                         )}
                     </div>
                 </div>
+                {showButton && (
+                    <a className={styles.btntopo} href='#topo'>
+                        <FaArrowUp color={'#FFF'}
+                            size={25}
+                        />
+
+                    </a>
+                )}
             </main>
         </>
     )
