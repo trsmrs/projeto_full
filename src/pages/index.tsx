@@ -50,10 +50,10 @@ export default function Home({ content }: ContentProps) {
 
   return (
     <>
+      <p id='topo'></p>
       <Head>
         <title>Home Page</title>
       </Head>
-      <p id='topo'></p>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
           <section className={styles.ctaText}>
