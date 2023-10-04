@@ -52,6 +52,7 @@ export default function Home({ content }: ContentProps) {
     <>
       <Head>
         <title>Home Page</title>
+        <meta property="og:image" content="https://images.prismic.io/trsm/c80277d5-a786-45a2-9c33-ea96f85c8eed__77bd0436-a0b0-4bf8-bb4b-71774c16b781-removebg.png?auto=compress,format" />
       </Head>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
