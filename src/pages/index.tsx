@@ -67,7 +67,7 @@ export default function Home({ content }: ContentProps) {
             />
             <a href={content.linkAction} target='_blank'>
               <button>
-                Contacte-me
+               Entrar em contato
               </button>
               <br />
               <span>{content.titleContent}</span>
@@ -107,7 +107,7 @@ export default function Home({ content }: ContentProps) {
           />
           <span>{content.citacao}</span>
           <a href={content.linkAction} target='_blank'>
-            <button>Contacte-me</button>
+            <button>Entrar em contato</button>
           </a>
         </div>
         {showButton && (
