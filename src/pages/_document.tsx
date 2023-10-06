@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import Analytics from '@/src/components/Analytics/index'
+import Analytics from '../components/Analytics'
 
 export default function Document() {
   return (
