@@ -55,7 +55,7 @@ export default function Home({ content }: ContentProps) {
         <meta property="og:title" content="Tiago Machado" />
         <meta property="og:description" content="Portfólio" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://portfolio-trsmrs.vercel.app" />
+        <meta property="og:url" content="https://portfolio-tiago-machado.com.br" />
         <meta name="keywords" content="REACT, CSS, NEXT" />
         <meta property="og:image" content="https://images.prismic.io/trsm/c80277d5-a786-45a2-9c33-ea96f85c8eed__77bd0436-a0b0-4bf8-bb4b-71774c16b781-removebg.png?auto=compress,format" />
       </Head>
