@@ -10,7 +10,7 @@ import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom';
 import { useEffect, useState } from 'react'
 
-
+import Cal, { getCalApi } from "@calcom/embed-react"
 
 type Content = {
   title: string;
@@ -48,6 +48,16 @@ export default function Home({ content }: ContentProps) {
     }
   }, [])
 
+  useEffect(() => {
+    (async function () {
+      const cal: any = await getCalApi();
+      cal("ui", {
+        styles: { branding: { brandColor: "#06b6d4" } },
+        hideEventTypeDetails: false,
+      });
+    })();
+  }, []);
+
   return (
     <>
       <Head>
@@ -57,7 +67,24 @@ export default function Home({ content }: ContentProps) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://portfolio-tiago-machado.com.br" />
         <meta name="keywords" content="REACT, CSS, NEXT" />
-        <meta property="og:image" content="https://images.prismic.io/trsm/c80277d5-a786-45a2-9c33-ea96f85c8eed__77bd0436-a0b0-4bf8-bb4b-71774c16b781-removebg.png?auto=compress,format" />
+        <meta property="og:image" content="https://images.prismic.io/trsm/c80277d5-a786-45a2-9c33-a96f85c8eed__77bd0436-a0b0-4bf8-bb4b-71774c16b781-removebg.png?auto=compress,format" />
+
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
       </Head>
       <main className={styles.container}>
         <div className={styles.containerHeader}>
@@ -67,7 +94,7 @@ export default function Home({ content }: ContentProps) {
             />
             <a href={content.linkAction} target='_blank'>
               <button>
-               Entrar em contato
+                Entrar em contato
               </button>
               <br />
               <span>{content.titleContent}</span>
