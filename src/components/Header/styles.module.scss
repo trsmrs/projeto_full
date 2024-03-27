@@ -4,7 +4,6 @@
     background: var(--gray-700);
 }
 
-
 .headerContent {
     max-width: 1120px;
     display: flex;
@@ -12,15 +11,18 @@
     height: 6rem;
     margin: 0 auto;
     padding: 0 1rem;
-
-
-    img {
-        cursor: pointer;
-    }
-
+   
+    
     nav {
         margin-left: 3rem;
         height: 4rem;
+
+
+        .name  {
+            font-size: 30px;
+            margin-left: -10px;
+        }
+
 
         p {
             display: inline-block;
@@ -30,6 +32,8 @@
             line-height: 4rem;
             color: var(--gray-100);
             transition: color 0.2s;
+
+           
 
             & + p {
                 margin-left: 2rem;
@@ -46,6 +50,7 @@
         }
     }
 }
+
 
 .gitButton {
     margin-left: auto;

@@ -1,159 +1,196 @@
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import styles from '../styles/home.module.scss'
+import Head from 'next/head'
 import Image from 'next/image'
-import { FaArrowUp } from 'react-icons/fa'
 
-import techsImage from '@/public/images/about.png'
+
+
+import { FiChevronLeft, FiChevronRight, FiChevronsRight, FiChevronsLeft } from 'react-icons/fi'
 import { getPrismicClient } from '../services/prismic'
 import Prismic from '@prismicio/client'
-import { RichText } from 'prismic-dom';
-import { useEffect, useState } from 'react'
+import { RichText } from 'prismic-dom'
+import { FaArrowUp } from 'react-icons/fa'
 
-
-
-type Content = {
-  title: string;
-  titleContent: string;
-  linkAction: string;
-  mobileTitle: string;
-  mobileContent: string;
-  mobileBanner: string;
-  webTitle: string;
-  webContent: string;
-  webBanner: string;
-  citacao: string;
+type Post = {
+    slug: string
+    title: string
+    description: string;
+    cover: string;
+    updatedAt: string;
 }
 
-interface ContentProps {
-  content: Content
+interface PostsProps {
+    posts: Post[];
+    page: string;
+    totalPage: string;
 }
 
-export default function Home({ content }: ContentProps) {
-  const [showButton, setShowButton] = useState(false)
+
+export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps) {
+    const [posts, setPosts] = useState(postsBlog || [])
+    const [currentPate, setCurrentPage] = useState(Number(page))
+    const [showButton, setShowButton] = useState(false)
 
 
-  const checkScroll = () => {
-    if (window.scrollY > window.innerHeight / 1) {
-      setShowButton(true)
-    } else {
-      setShowButton(false)
+    const checkScroll = () => {
+        if (window.scrollY > window.innerHeight / 1) {
+            setShowButton(true)
+        } else {
+            setShowButton(false)
+        }
     }
-  }
 
-  useEffect(() => {
-    window.addEventListener('scroll', checkScroll)
-    return () => {
-      window.removeEventListener('scroll', checkScroll)
+    useEffect(() => {
+        window.addEventListener('scroll', checkScroll)
+        return () => {
+            window.removeEventListener('scroll', checkScroll)
+        }
+    }, [])
+
+    
+
+    async function reqPost(pageNumber: number) {
+        const prismic = getPrismicClient()
+        const response = await prismic.query([
+            Prismic.Predicates.at('document.type', 'post')
+        ], {
+            orderings: '[document.last_publication_date desc]', //ordernar pelo mais recente.
+            fetch: ['post.title', 'post.description', 'post.cover'],
+            pageSize: 3,
+            page: String(pageNumber)
+        })
+
+        return response
     }
-  }, [])
 
-  return (
-    <>
-      <Head>
-        <title>Portfólio | Tiago Machado</title>
-        <meta property="og:title" content="Tiago Machado" />
-        <meta property="og:description" content="Portfólio" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://portfolio-tiago-machado.com.br" />
-        <meta name="keywords" content="REACT, CSS, NEXT" />
-        <meta property="og:image" content="https://images.prismic.io/trsm/c80277d5-a786-45a2-9c33-a96f85c8eed__77bd0436-a0b0-4bf8-bb4b-71774c16b781-removebg.png?auto=compress,format" />
-      </Head>
-      <main className={styles.container}>
-        <div className={styles.containerHeader}>
-          <section className={styles.ctaText}>
-            <h1>{content.title}</h1>
-            <img src='/images/appweb.png' alt='conteúdos'
-            />
-            <a href={content.linkAction} target='_blank'>
-              <button>
-               Entrar em contato
-              </button>
-              <br />
-              <span>{content.titleContent}</span>
-            </a>
-          </section>
-        </div>
+    async function navigatePage(pageNumber: number) {
+        const response = await reqPost(pageNumber)
+        if (response.results.length === 0) {
+            return
+        }
+        const getPosts = response.results.map((post: any) => {
+            return {
+                slug: post.uid,
+                title: RichText.asText(post.data.title),
+                description: post.data.description.find((content: any) => content.type === 'paragraph')?.text ?? '',
+                cover: post.data.cover.url,
+                updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                })
 
-        <hr className={styles.divisor} />
+            }
+        })
+        setCurrentPage(pageNumber)
+        setPosts(getPosts)
+    }
 
-        <div className={styles.sectionContent}>
-          <section>
-            <h2>{content.mobileTitle}</h2>
-            <span>{content.mobileContent}</span>
-          </section>
+    return (
+        <>
+            <Head>
+                <title>Portfólio | Projetos</title>
+            </Head>
+           
 
-          <img src={content.mobileBanner} alt="Conteúdos desenvolvimento de apps" />
-        </div>
 
-        <hr className={styles.divisor} />
+            <main className={styles.container}>
+              <article className={styles.article}>
+                <h1>Tiago Machado</h1>
+                <p>Desenvolvedor FullStack</p>
+                <p>
+                  Aplicações utilizando as tecnologias mais atuais.
+                </p>
+              </article>
+                <div className={styles.posts}>
+                    {posts.map(post => (
+                        <Link key={post.slug} href={`/posts/${post.slug}`}>
+                            <Image src={post.cover}
+                                alt={post.title}
+                                width={720}
+                                height={410}
+                                quality={100}
+                                draggable={false}
+                                placeholder='blur'
+                                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMUF5d8BQABxwEz747jfgAAAABJRU5ErkJggg=='
 
-        <div className={styles.sectionContent}>
-          <img src={content.webBanner} alt="Conteúdos desenvolvimento de aplicacoes web" />
+                            />
+                            <strong>{post.title}</strong>
+                            <time>{post.updatedAt}</time>
+                            <p>{post.description}</p>
+                        </Link>
+                    ))}
 
-          <section>
-            <h2>{content.webTitle}</h2>
-            <span>{content.webContent}</span>
-          </section>
-        </div>
+                    <div className={styles.buttonNavigate}>
+                        {Number(currentPate) >= 2 && (
+                            <div>
+                                <button onClick={() => navigatePage(1)}>
+                                    <FiChevronsLeft size={25} color="#FFF" />
+                                </button>
+                                <button onClick={() => navigatePage(Number(currentPate - 1))}>
+                                    <FiChevronLeft size={25} color="#FFF" />
+                                </button>
+                            </div>
+                        )}
 
-        <hr className={styles.divisor} />
+                        {Number(currentPate) < Number(totalPage) && (
+                            <div>
+                                <button onClick={() => navigatePage(Number(currentPate + 1))}>
+                                    <FiChevronRight size={25} color="#FFF" />
+                                </button>
+                                <button onClick={() => navigatePage(Number(totalPage))}>
+                                    <FiChevronsRight size={25} color="#FFF" />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {showButton && (
+                    <a className={styles.btntopo} href='#topo'>
+                        <FaArrowUp color={'#FFF'}
+                            size={25}
+                        />
 
-        <div className={styles.nextLevelContent}>
-          <h2>Estas são as <span>Stacks</span> que venho estudando</h2>
-          <Image src={techsImage} alt='tecnologia'
-            quality={100}
-            width={460}
-          />
-          <span>{content.citacao}</span>
-          <a href={content.linkAction} target='_blank'>
-            <button>Entrar em contato</button>
-          </a>
-        </div>
-        {showButton && (
-          <a className={styles.btntopo} href='#topo'>
-            <FaArrowUp color={'#FFF'}
-              size={25}
-            />
-
-          </a>
-        )}
-      </main>
-    </>
-  )
+                    </a>
+                )}
+            </main>
+        </>
+    )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+    const prismic = getPrismicClient()
+    const response = await prismic.query([
+        Prismic.Predicates.at('document.type', 'post')
+    ], {
+        orderings: '[document.last_publication_date desc]', //ordernar pelo mais recente.
+        fetch: ['post.title', 'post.description', 'post.cover'],
+        pageSize: 3
+    })
 
-  const prismic = getPrismicClient()
+    const posts = response.results.map((post: any) => {
+        return {
+            slug: post.uid,
+            title: RichText.asText(post.data.title),
+            description: post.data.description.find((content: any) => content.type === 'paragraph')?.text ?? '',
+            cover: post.data.cover.url,
+            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            })
 
-  const response = await prismic.query([
-    Prismic.Predicates.at('document.type', 'home')
-  ])
+        }
+    })
 
-  const {
-    title, sub_title, link_action,
-    mobile, mobile_content, mobile_bannser,
-    title_web, web_content, web_banner, citacao
-  } = response.results[0].data;
-
-  const content = {
-    title: RichText.asText(title),
-    titleContent: RichText.asText(sub_title),
-    linkAction: link_action.url,
-    mobileTitle: RichText.asText(mobile),
-    mobileContent: RichText.asText(mobile_content),
-    mobileBanner: mobile_bannser.url,
-    webTitle: RichText.asText(title_web),
-    webContent: RichText.asText(web_content),
-    webBanner: web_banner.url,
-    citacao: RichText.asText(citacao)
-  }
-
-  return {
-    props: {
-      content
-    },
-    revalidate: 60 * 2
-  }
+    return {
+        props: {
+            posts,
+            page: response.page,
+            totalPage: response.total_pages
+        },
+        revalidate: 60 * 30 // Atualiza a cada 30 min
+    }
 }

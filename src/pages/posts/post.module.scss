@@ -56,10 +56,17 @@
         }
     }
 
-    a:hover {
+    a {
         color: var(--blue-900);
+        font-size: 18px;
+        transition: font-size 1.4 ease;
+       
     }
 
+    a:hover{
+        font-size: 20px;
+    }
+   
     pre {
         border-radius: 0.5rem;
         background: var(--gray-700);
