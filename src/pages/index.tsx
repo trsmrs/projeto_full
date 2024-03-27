@@ -99,10 +99,12 @@ export default function Posts({ posts: postsBlog, page, totalPage }: PostsProps)
             <main className={styles.container}>
               <article className={styles.article}>
                 <h1><Link target='_blank' href={'https://www.linkedin.com/in/tiagotrsm/'}>Tiago Machado</Link></h1>
-                <p>Desenvolvedor FullStack</p>
-                <p>
+                <h2>Desenvolvedor FullStack</h2>
+                <hr />
+                <br />
+                <h2>
                   Aplicações Web com as tecnologias mais utilizadas.
-                </p>
+                </h2>
                 <br></br>
                 <span>
                   * Estas aplicações foram feitas com React no front End, e Node.js no Back end,
