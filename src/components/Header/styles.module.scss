@@ -24,6 +24,11 @@
         }
 
 
+
+        .whats:hover {
+            color: #36ba42;
+        }
+
         p {
             display: inline-block;
             position: relative;
@@ -47,6 +52,8 @@
                 color: var(--blue-900);
                 font-weight: bold;
             }
+
+          
         }
     }
 }
@@ -54,6 +61,7 @@
 
 .gitButton {
     margin-left: auto;
+    margin-right: 10px;
     height: 2rem;
     border-radius: 3rem;
     background: var(--blue-900);
@@ -68,6 +76,26 @@
 
     &:hover {
         filter: brightness(1.1);
+    }
+}
+
+.whats {
+    margin-right: 0;
+    height: 2rem;
+    border-radius: 3rem;
+    background: var(--blue-900);
+    border: 0;
+    padding: 0 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: bold;
+    transform: filter 0.2s;
+
+    &:hover {
+        filter: brightness(1.1);
+       background-color: #36ba42;
     }
 }
 
